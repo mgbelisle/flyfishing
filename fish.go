@@ -1,32 +1,44 @@
 package flyfishing
 
-import "math/rand"
+import (
+	"math/rand"
+	"math"
+)
 
+// This interface for a fish makes the lake struct super flexible.
 type Fish interface {
-	XLoc, YLoc float
-	likesFlyType(Fly) bool
+	Loc() Location
+	LureWith(fly Fly, distance float64) bool
 }
 
-func (f Fish) LureWith(fly Fly, distance float) bool {
-	return f.noticesFly(distance) && f.isHungry() && f.likesFlyType(fly)
-}
-
-func (f Fish) isHungry() bool {
-	return rand.Float32() > 0.5
-}
-
-func (f Fish) noticesFly(distance float) bool {
-	return 1 / (1 + distance ** 2) > rand.Float32()
-}
-
+// Trout is kind of like a class
 type Trout struct {
-	XLoc, YLoc float
+	loc Location
+}
+func (t Trout) Loc() Location {
+	return t.loc
+}
+func (t Trout) LureWith(fly Fly, distance float64) bool {
+	return t.noticesFly(distance) && t.isHungry() && t.likesFlyType(fly)
+}
+func (t Trout) noticesFly(distance float64) bool {
+	return 1 / (1 + math.Pow(distance, 2)) > rand.Float64()
+}
+func (t Trout) isHungry() bool {
+	return rand.Float64() > 0.5
+}
+func (t Trout) likesFlyType(fly Fly) bool {
+	switch fly.(type) {
+	case Caddis: return true
+	case ParachuteAdams: return true
+	case WoollyBugger: return true
+	}
+	return false
 }
 
-type Cutthroat struct {
-	Trout
-}
-
+// Cutthroat is kind of like a subclass of Trout.  Notice how it is
+// pickier about what types of flies it likes.
+type Cutthroat struct { Trout }
 func (f Cutthroat) likesFlyType(fly Fly) bool {
 	switch fly.(type) {
 	case Caddis: return true
@@ -35,14 +47,9 @@ func (f Cutthroat) likesFlyType(fly Fly) bool {
 	return false
 }
 
-type Rainbow struct {
-	Trout
-}
-
-func (f Rainbow) likesFlyType(fly Fly) bool {
-	switch fly.(type) {
-	case ParachuteAdams: return true
-	case WoollyBugger: return true
-	}
-	return false
+// Rainbow is kind of like a subclass of Trout.  Notice how it is less
+// hungry than a normal trout.
+type Rainbow struct { Trout }
+func (r Rainbow) isHungry() bool {
+	return rand.Float64() > 0.3
 }
