@@ -20,10 +20,10 @@ func (l Lake) CastFly(fly Fly, loc Location) Fish {
 	return nil
 }
 
-func (l Lake) FillWithFishes(n int) {
+func (l *Lake) FillWithFishes(n int) {
 	for i := 0; i < n; i++ {
 		randX := rand.Float64() * l.MaxLocation.X
 		randY := rand.Float64() * l.MaxLocation.Y
-		l.Fishes = append(l.Fishes, Rainbow{Trout{Location{randX, randY}}})
+		l.Fishes = append(l.Fishes, Rainbow{trout{Location{randX, randY}}})
 	}
 }

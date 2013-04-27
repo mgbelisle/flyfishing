@@ -11,23 +11,23 @@ type Fish interface {
 	LureWith(fly Fly, distance float64) bool
 }
 
-// Trout is kind of like a class
-type Trout struct {
+// trout is kind of like a class
+type trout struct {
 	loc Location
 }
-func (t Trout) Loc() Location {
+func (t trout) Loc() Location {
 	return t.loc
 }
-func (t Trout) LureWith(fly Fly, distance float64) bool {
+func (t trout) LureWith(fly Fly, distance float64) bool {
 	return t.noticesFly(distance) && t.isHungry() && t.likesFlyType(fly)
 }
-func (t Trout) noticesFly(distance float64) bool {
+func (t trout) noticesFly(distance float64) bool {
 	return 1 / (1 + math.Pow(distance, 2)) > rand.Float64()
 }
-func (t Trout) isHungry() bool {
+func (t trout) isHungry() bool {
 	return rand.Float64() > 0.5
 }
-func (t Trout) likesFlyType(fly Fly) bool {
+func (t trout) likesFlyType(fly Fly) bool {
 	switch fly.(type) {
 	case Caddis: return true
 	case ParachuteAdams: return true
@@ -36,10 +36,10 @@ func (t Trout) likesFlyType(fly Fly) bool {
 	return false
 }
 
-// Cutthroat is kind of like a subclass of Trout.  Notice how it is
+// Cutthroat is kind of like a subclass of trout.  Notice how it is
 // pickier about what types of flies it likes.
-type Cutthroat struct { Trout }
-func (f Cutthroat) likesFlyType(fly Fly) bool {
+type Cutthroat struct { trout }
+func (c Cutthroat) likesFlyType(fly Fly) bool {
 	switch fly.(type) {
 	case Caddis: return true
 	case ParachuteAdams: return true
@@ -47,9 +47,9 @@ func (f Cutthroat) likesFlyType(fly Fly) bool {
 	return false
 }
 
-// Rainbow is kind of like a subclass of Trout.  Notice how it is less
+// Rainbow is kind of like a subclass of trout.  Notice how it is less
 // hungry than a normal trout.
-type Rainbow struct { Trout }
+type Rainbow struct { trout }
 func (r Rainbow) isHungry() bool {
 	return rand.Float64() > 0.3
 }
