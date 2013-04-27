@@ -21,13 +21,13 @@ func (t trout) Loc() Location {
 func (t trout) LureWith(fly Fly, distance float64) bool {
 	return t.noticesFly(distance) && t.isHungry() && t.likesFlyType(fly)
 }
-func (t trout) noticesFly(distance float64) bool {
+func (_ trout) noticesFly(distance float64) bool {
 	return 1 / (1 + math.Pow(distance, 2)) > rand.Float64()
 }
-func (t trout) isHungry() bool {
+func (_ trout) isHungry() bool {
 	return rand.Float64() > 0.5
 }
-func (t trout) likesFlyType(fly Fly) bool {
+func (_ trout) likesFlyType(fly Fly) bool {
 	switch fly.(type) {
 	case Caddis: return true
 	case ParachuteAdams: return true
@@ -39,7 +39,7 @@ func (t trout) likesFlyType(fly Fly) bool {
 // Cutthroat is kind of like a subclass of trout.  Notice how it is
 // pickier about what types of flies it likes.
 type Cutthroat struct { trout }
-func (c Cutthroat) likesFlyType(fly Fly) bool {
+func (_ Cutthroat) likesFlyType(fly Fly) bool {
 	switch fly.(type) {
 	case Caddis: return true
 	case ParachuteAdams: return true
@@ -50,6 +50,6 @@ func (c Cutthroat) likesFlyType(fly Fly) bool {
 // Rainbow is kind of like a subclass of trout.  Notice how it is less
 // hungry than a normal trout.
 type Rainbow struct { trout }
-func (r Rainbow) isHungry() bool {
+func (_ Rainbow) isHungry() bool {
 	return rand.Float64() > 0.3
 }
