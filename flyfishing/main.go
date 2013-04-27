@@ -7,6 +7,8 @@ import (
 
 func main() {
 	lake := flyfishing.Lake{MaxLocation: flyfishing.Location{600, 400}}
-	lake.FillWithFishes(100)
+	for i := 0; i < 100; i++ {
+		lake.AddFish()
+	}
 	log.Println(len(lake.Fishes))
 }
