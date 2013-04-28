@@ -19,8 +19,9 @@ func (l Lake) CastFly(fly Fly, loc Location) Fish {
 	}
 	return nil
 }
-func (l *Lake) AddFish() {
-	randX := rand.Float64() * l.MaxLocation.X
-	randY := rand.Float64() * l.MaxLocation.Y
-	l.Fishes = append(l.Fishes, Rainbow{trout{Location{randX, randY}}})
+func (l Lake) RandLoc() Location {
+	x := rand.Float64() * l.MaxLocation.X
+	y := rand.Float64() * l.MaxLocation.Y
+	return Location{x, y}
 }
+

@@ -46,6 +46,9 @@ func (_ Cutthroat) likesFlyType(fly Fly) bool {
 	}
 	return false
 }
+func NewCutthroat(lake Lake) Cutthroat {
+	return Cutthroat{trout{lake.RandLoc()}}
+}
 
 // Rainbow is kind of like a subclass of trout.  Notice how it is less
 // hungry than a normal trout.
