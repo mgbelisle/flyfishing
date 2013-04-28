@@ -11,10 +11,10 @@ func init() {
 }
 
 type Lake struct {
-	MaxLocation Location
+	length, width float64
 	Fishes []Fish
 }
-func (l Lake) CastFly(fly Fly, loc Location) Fish {
+func (l Lake) CastInto(fly Fly, loc Location) Fish {
 	for _, fish := range l.Fishes {
 		distance := math.Sqrt(math.Pow(loc.X, 2) + math.Pow(loc.Y, 2))
 		if fish.LureWith(fly, distance) {
@@ -24,8 +24,8 @@ func (l Lake) CastFly(fly Fly, loc Location) Fish {
 	return nil
 }
 func (l Lake) RandLoc() Location {
-	x := rand.Float64() * l.MaxLocation.X
-	y := rand.Float64() * l.MaxLocation.Y
+	x := rand.Float64() * l.length
+	y := rand.Float64() * l.width
 	return Location{x, y}
 }
 func (l Lake) NewFish() Fish {
@@ -35,11 +35,11 @@ func (l Lake) NewFish() Fish {
 	}
 	return Cutthroat{Trout{l.RandLoc()}}
 }
-func NewLake() Lake {
-	length := rand.Float64() * 1000
-	width := rand.Float64() * 1000
-	lake := Lake{MaxLocation: Location{length, width}}
-	numFishes := rand.Float64() * lake.MaxLocation.X * lake.MaxLocation.Y / 10
+func NewLake(length, width float64) Lake {
+	// length := rand.Float64() * 1000
+	// width := rand.Float64() * 1000
+	lake := Lake{length: length, width: width}
+	numFishes := rand.Float64() * lake.length * lake.width / 10
 	for i := 0; i < int(numFishes) ; i++ {
 		lake.Fishes = append(lake.Fishes, lake.NewFish())
 	}

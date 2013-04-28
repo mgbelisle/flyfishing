@@ -1,6 +1,7 @@
 package flyfishing
 
 import (
+	"fmt"
 	"math/rand"
 	"math"
 )
@@ -34,6 +35,9 @@ func (_ Trout) likesFlyType(fly Fly) bool {
 	case WoollyBugger: return true
 	}
 	return false
+}
+func (t Trout) String() string {
+	return fmt.Sprintf("%T at (%f, %f)", t, t.loc.X, t.loc.Y)
 }
 
 // Cutthroat is kind of like a subclass of Trout.  Notice how it is
