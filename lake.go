@@ -28,13 +28,16 @@ func (l Lake) RandLoc() Location {
 	y := rand.Float64() * l.MaxLocation.Y
 	return Location{x, y}
 }
+func (l Lake) NewFish() Fish {
+	return Cutthroat{Trout{l.RandLoc()}}
+}
 func NewLake() Lake {
 	length := rand.Float64() * 1000
 	width := rand.Float64() * 1000
 	lake := Lake{MaxLocation: Location{length, width}}
 	numFishes := rand.Float64() * lake.MaxLocation.X * lake.MaxLocation.Y / 10
 	for i := 0; i < int(numFishes) ; i++ {
-		lake.Fishes = append(lake.Fishes, NewCutthroat(lake))
+		lake.Fishes = append(lake.Fishes, lake.NewFish())
 	}
 	return lake
 }
