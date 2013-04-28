@@ -28,7 +28,7 @@ func (l Lake) RandLoc() Location {
 	y := rand.Float64() * l.Width
 	return Location{x, y}
 }
-func (l Lake) NewFish(loc Location) Fish {
+func (l Lake) newFish(loc Location) Fish {
 	r := rand.Float64()
 	if r < 0.3 {
 		return Rainbow{Trout{loc}}
@@ -44,7 +44,7 @@ func NewLake() Lake {
 		loc := lake.RandLoc()
 		loc.X = sweetSpot.X + (loc.X - sweetSpot.X) / 4
 		loc.Y = sweetSpot.Y + (loc.Y - sweetSpot.Y) / 4
-		lake.fishes = append(lake.fishes, lake.NewFish(loc))
+		lake.fishes = append(lake.fishes, lake.newFish(loc))
 	}
 	return lake
 }
