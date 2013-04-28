@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	lake := flyfishing.NewLake(400, 500)
+	lake := flyfishing.NewLake()
 	numCasts := 100
 	for i := 0; i < numCasts; i++ {
 		fish := lake.CastInto(flyfishing.Caddis{}, lake.RandLoc())
