@@ -29,6 +29,10 @@ func (l Lake) RandLoc() Location {
 	return Location{x, y}
 }
 func (l Lake) NewFish() Fish {
+	r := rand.Float64()
+	if r < 0.3 {
+		return Rainbow{Trout{l.RandLoc()}}
+	}
 	return Cutthroat{Trout{l.RandLoc()}}
 }
 func NewLake() Lake {
