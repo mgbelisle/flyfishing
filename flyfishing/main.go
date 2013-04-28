@@ -14,5 +14,4 @@ func main() {
 			log.Println(fish)
 		}
 	}
-	log.Println(len(lake.Fishes))
 }
