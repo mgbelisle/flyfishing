@@ -1,6 +1,7 @@
 package flyfishing
 
 import (
+	"log"
 	"math"
 	"math/rand"
 	"time"
@@ -38,13 +39,16 @@ func (l Lake) NewFish(loc Location) Fish {
 func NewLake() Lake {
 	lake := Lake{Length: 500, Width: 300}
 	sweetSpot := lake.RandLoc()
-	// Adds 100 fish to the lake randomly placed around the sweet
+	// Adds 1000 fish to the lake randomly placed around the sweet
 	// spot.
-	for i := 0; i < 100 ; i++ {
+	log.Println(sweetSpot)
+	for i := 0; i < 1000 ; i++ {
 		loc1 := lake.RandLoc()
-		x := sweetSpot.X - (sweetSpot.X - loc1.X) / 5
-		y := sweetSpot.Y - (sweetSpot.Y - loc1.Y) / 5
-		lake.fishes = append(lake.fishes, lake.NewFish(Location{x, y}))
+		x := sweetSpot.X + (loc1.X - sweetSpot.X) / 4
+		y := sweetSpot.Y + (loc1.Y - sweetSpot.Y) / 4
+		loc2 := Location{x, y}
+		log.Println(loc2)
+		lake.fishes = append(lake.fishes, lake.NewFish(loc2))
 	}
 	return lake
 }
