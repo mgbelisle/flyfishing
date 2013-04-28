@@ -8,7 +8,7 @@ import (
 func main() {
 	lake := flyfishing.NewLake()
 	for i := 0; i < 100; i++ {
-		fish := lake.CastInto(flyfishing.Caddis{}, lake.RandLoc())
+		fish := lake.Cast(flyfishing.Caddis{}, lake.RandLoc())
 		if fish != nil {
 			log.Println(fish)
 		}

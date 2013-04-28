@@ -14,7 +14,7 @@ type Lake struct {
 	Length, Width float64
 	fishes []Fish
 }
-func (l Lake) CastInto(fly Fly, loc Location) Fish {
+func (l Lake) Cast(fly Fly, loc Location) Fish {
 	for _, fish := range l.fishes {
 		distance := math.Sqrt(math.Pow(loc.X, 2) + math.Pow(loc.Y, 2))
 		if fish.LureWith(fly, distance) {
