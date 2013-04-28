@@ -3,13 +3,17 @@ package flyfishing
 import (
 	"math"
 	"math/rand"
+	"time"
 )
+
+func init() {
+	rand.Seed(time.Now().UnixNano())
+}
 
 type Lake struct {
 	MaxLocation Location
 	Fishes []Fish
 }
-
 func (l Lake) CastFly(fly Fly, loc Location) Fish {
 	for _, fish := range l.Fishes {
 		distance := math.Sqrt(math.Pow(loc.X, 2) + math.Pow(loc.Y, 2))
@@ -24,4 +28,13 @@ func (l Lake) RandLoc() Location {
 	y := rand.Float64() * l.MaxLocation.Y
 	return Location{x, y}
 }
-
+func NewLake() Lake {
+	length := rand.Float64() * 1000
+	width := rand.Float64() * 1000
+	lake := Lake{MaxLocation: Location{length, width}}
+	numFishes := rand.Float64() * lake.MaxLocation.X * lake.MaxLocation.Y / 10
+	for i := 0; i < int(numFishes) ; i++ {
+		lake.Fishes = append(lake.Fishes, NewCutthroat(lake))
+	}
+	return lake
+}
