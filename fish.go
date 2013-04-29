@@ -8,18 +8,18 @@ import (
 
 // This interface for a fish makes the lake struct super flexible.
 type Fish interface {
-	Loc() Location
-	LureWith(fly Fly, distance float64) bool
+	loc() Location
+	lureWith(fly Fly, distance float64) bool
 }
 
 // Trout is kind of like a class
 type Trout struct {
-	loc Location
+	location Location
 }
-func (t Trout) Loc() Location {
-	return t.loc
+func (t Trout) loc() Location {
+	return t.location
 }
-func (t Trout) LureWith(fly Fly, distance float64) bool {
+func (t Trout) lureWith(fly Fly, distance float64) bool {
 	return t.noticesFly(distance) && t.isHungry() && t.likesFlyType(fly)
 }
 func (_ Trout) noticesFly(distance float64) bool {
@@ -36,7 +36,7 @@ func (_ Trout) likesFlyType(fly Fly) bool {
 	return false
 }
 func (t Trout) String() string {
-	return fmt.Sprintf("%T at (%f, %f)", t, t.loc.X, t.loc.Y)
+	return fmt.Sprintf("%T at (%f, %f)", t, t.location.X, t.location.Y)
 }
 
 // Cutthroat is kind of like a subclass of Trout.  It likes different
