@@ -7,6 +7,7 @@ import (
 
 type CastLog struct {
 	Location Location
+	Fly Fly
 	Fish Fish
 }
 
