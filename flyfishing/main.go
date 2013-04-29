@@ -5,12 +5,18 @@ import (
 	"log"
 )
 
+type cast struct {
+	loc flyfishing.Location
+	fish flyfishing.Fish
+}
+
 func main() {
 	lake := flyfishing.NewLake()
+	casts := []cast{}
 	for i := 0; i < 100; i++ {
-		fish := lake.CastInto(flyfishing.Caddis{}, lake.RandLoc())
-		if fish != nil {
-			log.Println(fish)
-		}
+		loc := lake.RandLoc()
+		fish := lake.CastInto(flyfishing.Caddis{}, loc)
+		casts = append(casts, cast{loc, fish})
 	}
+	log.Println(casts[:10])
 }
