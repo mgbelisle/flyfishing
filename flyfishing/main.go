@@ -6,7 +6,7 @@ import (
 
 func main() {
 	lake := flyfishing.NewLake()
-	castLogs := castNTimesAsync(100, lake)
+	castLogs := castNTimesAsync(1000, lake)
 	lake.ShowCastLogs(castLogs)
 }
 

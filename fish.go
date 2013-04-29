@@ -23,7 +23,7 @@ func (t Trout) lureWith(fly Fly, distance float64) bool {
 	return t.noticesFly(distance) && t.isHungry() && t.likesFlyType(fly)
 }
 func (_ Trout) noticesFly(distance float64) bool {
-	return rand.Float64() < 1 / (1 + math.Pow(distance, 2))
+	return rand.Float64() < 1 / (1 + math.Pow(distance / 2, 2))
 }
 func (_ Trout) isHungry() bool {
 	return rand.Float64() > 0.5

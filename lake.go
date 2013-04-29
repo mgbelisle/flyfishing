@@ -45,8 +45,8 @@ func NewLake() Lake {
 	// spot.
 	for i := 0; i < 1000 ; i++ {
 		loc := lake.RandLoc()
-		loc.X = sweetSpot.X + (loc.X - sweetSpot.X) / 4
-		loc.Y = sweetSpot.Y + (loc.Y - sweetSpot.Y) / 4
+		loc.X = sweetSpot.X + (loc.X - sweetSpot.X) / 10
+		loc.Y = sweetSpot.Y + (loc.Y - sweetSpot.Y) / 10
 		lake.fishes = append(lake.fishes, lake.newFish(loc))
 	}
 	return lake
