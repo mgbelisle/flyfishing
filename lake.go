@@ -15,6 +15,7 @@ type Lake struct {
 	fishes []Fish
 }
 func (l Lake) CastInto(fly Fly, loc Location) Fish {
+	time.Sleep(time.Millisecond * 100)
 	for _, fish := range l.fishes {
 		distance := math.Sqrt(math.Pow(loc.X, 2) + math.Pow(loc.Y, 2))
 		if fish.lureWith(fly, distance) {
