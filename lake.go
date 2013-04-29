@@ -1,7 +1,6 @@
 package flyfishing
 
 import (
-	"log"
 	"math"
 	"math/rand"
 	"time"
@@ -37,9 +36,6 @@ func (l Lake) newFish(loc Location) Fish {
 		return Rainbow{Trout{loc}}
 	}
 	return Cutthroat{Trout{loc}}
-}
-func (l Lake) ShowCastLogs(castLogs []CastLog) {
-	log.Println(len(castLogs))
 }
 
 func NewLake() Lake {
