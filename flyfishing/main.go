@@ -6,32 +6,32 @@ import (
 
 func main() {
 	lake := flyfishing.NewLake()
-	casts := castNTimesAsync(100, lake)
-	lake.ShowCasts(casts)
+	castLogs := castNTimesAsync(100, lake)
+	lake.ShowCastLogs(castLogs)
 }
 
-func castNTimes(n int, lake flyfishing.Lake) []flyfishing.Cast {
-	casts := []flyfishing.Cast{}
+func castNTimes(n int, lake flyfishing.Lake) []flyfishing.CastLog {
+	castLogs := []flyfishing.CastLog{}
 	for i := 0; i < n; i++ {
 		loc := lake.RandLoc()
 		fish := lake.CastInto(flyfishing.Caddis{}, lake.RandLoc())
-		casts = append(casts, flyfishing.Cast{loc, fish})
+		castLogs = append(castLogs, flyfishing.CastLog{loc, fish})
 	}
-	return casts
+	return castLogs
 }
 
-func castNTimesAsync(n int, lake flyfishing.Lake) []flyfishing.Cast {
-	castChan := make(chan flyfishing.Cast)
+func castNTimesAsync(n int, lake flyfishing.Lake) []flyfishing.CastLog {
+	castChan := make(chan flyfishing.CastLog)
 	for i := 0; i < n; i++ {
 		go func() {
 			loc := lake.RandLoc()
 			fish := lake.CastInto(flyfishing.Caddis{}, lake.RandLoc())
-			castChan <- flyfishing.Cast{loc, fish}
+			castChan <- flyfishing.CastLog{loc, fish}
 		}()
 	}
-	casts := []flyfishing.Cast{}
+	castLogs := []flyfishing.CastLog{}
 	for i := 0; i < n; i++ {
-		casts = append(casts, <-castChan)
+		castLogs = append(castLogs, <-castChan)
 	}
-	return casts
+	return castLogs
 }

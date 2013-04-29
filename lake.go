@@ -38,8 +38,8 @@ func (l Lake) newFish(loc Location) Fish {
 	}
 	return Cutthroat{Trout{loc}}
 }
-func (l Lake) ShowCasts(casts []Cast) {
-	log.Println(len(casts))
+func (l Lake) ShowCastLogs(castLogs []CastLog) {
+	log.Println(len(castLogs))
 }
 
 func NewLake() Lake {
