@@ -5,18 +5,33 @@ import (
 	"log"
 )
 
-type cast struct {
+func main() {
+	lake := flyfishing.NewLake()
+	castResults := castNTimes(100, lake)
+	log.Println(len(castResults))
+}
+
+type castResult struct {
 	loc flyfishing.Location
 	fish flyfishing.Fish
 }
 
-func main() {
-	lake := flyfishing.NewLake()
-	casts := []cast{}
-	for i := 0; i < 100; i++ {
+func castNTimes(n int, lake flyfishing.Lake) []castResult {
+	castResults := []castResult{}
+	for i := 0; i < n; i++ {
 		loc := lake.RandLoc()
-		fish := lake.CastInto(flyfishing.Caddis{}, loc)
-		casts = append(casts, cast{loc, fish})
+		fish := lake.CastInto(flyfishing.Caddis{}, lake.RandLoc())
+		castResults = append(castResults, castResult{loc, fish})
 	}
-	log.Println(casts[:10])
+	return castResults
+}
+
+func castNTimesAsync(n int, lake flyfishing.Lake) []castResult {
+	castResults := []castResult{}
+	for i := 0; i < n; i++ {
+		loc := lake.RandLoc()
+		fish := lake.CastInto(flyfishing.Caddis{}, lake.RandLoc())
+		castResults = append(castResults, castResult{loc, fish})
+	}
+	return castResults
 }
