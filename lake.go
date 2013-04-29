@@ -1,6 +1,7 @@
 package flyfishing
 
 import (
+	"log"
 	"math"
 	"math/rand"
 	"time"
@@ -10,6 +11,7 @@ func init() {
 	rand.Seed(time.Now().UnixNano())
 }
 
+// Lake is like a class
 type Lake struct {
 	Length, Width float64
 	fishes []Fish
@@ -36,6 +38,10 @@ func (l Lake) newFish(loc Location) Fish {
 	}
 	return Cutthroat{Trout{loc}}
 }
+func (l Lake) ShowCasts(casts []Cast) {
+	log.Println(len(casts))
+}
+
 func NewLake() Lake {
 	lake := Lake{Length: 500, Width: 300}
 	sweetSpot := lake.RandLoc()

@@ -8,7 +8,7 @@ import (
 
 // This interface for a fish makes the lake struct super flexible.
 type Fish interface {
-	loc() Location
+	getLocation() Location
 	lureWith(fly Fly, distance float64) bool
 }
 
@@ -16,7 +16,7 @@ type Fish interface {
 type Trout struct {
 	location Location
 }
-func (t Trout) loc() Location {
+func (t Trout) getLocation() Location {
 	return t.location
 }
 func (t Trout) lureWith(fly Fly, distance float64) bool {
