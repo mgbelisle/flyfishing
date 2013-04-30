@@ -2,12 +2,14 @@ package main
 
 import (
 	"flyfishing"
+	"fmt"
 )
 
 func main() {
 	lake := flyfishing.NewLake()
 	biteLocations := castNTimesAsync(5000, lake)
-	lake.LocationsToSVG(biteLocations)
+	svg := lake.LocationsToSVG(biteLocations)
+	fmt.Println("Map created:", svg.Name())
 }
 
 func castNTimes(n int, lake flyfishing.Lake) []flyfishing.Location {

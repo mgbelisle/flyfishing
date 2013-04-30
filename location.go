@@ -2,6 +2,8 @@ package flyfishing
 
 import (
 	"html/template"
+	"io/ioutil"
+	"log"
 	"os"
 )
 
@@ -9,9 +11,14 @@ type Location struct {
 	X, Y float64
 }
 
-func (l Lake) LocationsToSVG(locations []Location) {
-	t := template.Must(template.New("main").Parse(svgTemplate))
-	t.Execute(os.Stdout, svgTemplateVals{l, locations})
+func (l Lake) LocationsToSVG(locations []Location) *os.File {
+	file, err := ioutil.TempFile("", "")
+	if err != nil {
+		log.Fatal(err)
+	}
+	t := template.Must(template.New("").Parse(svgTemplate))
+	t.Execute(file, svgTemplateVals{l, locations})
+	return file
 }
 
 type svgTemplateVals struct {
