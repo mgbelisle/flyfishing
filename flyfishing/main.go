@@ -6,7 +6,7 @@ import (
 
 func main() {
 	lake := flyfishing.NewLake()
-	biteLocations := castNTimesAsync(1000, lake)
+	biteLocations := castNTimesAsync(10000, lake)
 	lake.LocationsToSVG(biteLocations)
 }
 
@@ -38,7 +38,7 @@ func castNTimesAsync(n int, lake flyfishing.Lake) []flyfishing.Location {
 		}()
 	}
 	for i := 0; i < n; i++ {
-		<-done
+		<-done // Waits for all n casts to finish
 	}
 	return locations
 }
