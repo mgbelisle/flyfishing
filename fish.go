@@ -9,7 +9,7 @@ import (
 // This interface for a fish makes the lake struct super flexible.
 type Fish interface {
 	getLocation() Location
-	lureWith(fly Fly, distance float64) bool
+	lureWith(Fly, Location) bool
 }
 
 // Trout is kind of like a class
@@ -19,10 +19,12 @@ type Trout struct {
 func (t Trout) getLocation() Location {
 	return t.location
 }
-func (t Trout) lureWith(fly Fly, distance float64) bool {
-	return t.noticesFly(distance) && t.isHungry() && t.likesFlyType(fly)
+func (t Trout) lureWith(fly Fly, loc Location) bool {
+	return t.noticesFly(loc) && t.isHungry() && t.likesFlyType(fly)
 }
-func (_ Trout) noticesFly(distance float64) bool {
+func (t Trout) noticesFly(loc Location) bool {
+	distance := math.Sqrt(math.Pow(loc.X - t.location.X, 2) +
+		math.Pow(loc.Y - t.location.Y, 2))
 	return rand.Float64() < 1 / (1 + math.Pow(distance / 2, 2))
 }
 func (_ Trout) isHungry() bool {

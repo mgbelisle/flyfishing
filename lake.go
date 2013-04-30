@@ -1,7 +1,6 @@
 package flyfishing
 
 import (
-	"math"
 	"math/rand"
 	"time"
 )
@@ -18,9 +17,7 @@ type Lake struct {
 func (l Lake) CastInto(fly Fly, loc Location) Fish {
 	time.Sleep(time.Millisecond * 100)
 	for _, fish := range l.fishes {
-		loc2 := fish.getLocation()
-		distance := math.Sqrt(math.Pow(loc.X - loc2.X, 2) + math.Pow(loc.Y - loc2.Y, 2))
-		if fish.lureWith(fly, distance) {
+		if fish.lureWith(fly, loc) {
 			return fish
 		}
 	}
