@@ -6,7 +6,7 @@ import (
 
 func main() {
 	lake := flyfishing.NewLake()
-	biteLocations := castNTimesAsync(1000, lake)
+	biteLocations := castNTimesAsync(5000, lake)
 	lake.LocationsToSVG(biteLocations)
 }
 

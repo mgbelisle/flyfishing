@@ -25,7 +25,7 @@ func (t Trout) lureWith(fly Fly, loc Location) bool {
 func (t Trout) noticesFly(loc Location) bool {
 	distance := math.Sqrt(math.Pow(loc.X - t.location.X, 2) +
 		math.Pow(loc.Y - t.location.Y, 2))
-	return rand.Float64() < 1 / (1 + math.Pow(distance / 2, 2))
+	return rand.Float64() < 1 / (1 + math.Pow(distance, 2))
 }
 func (_ Trout) isHungry() bool {
 	return rand.Float64() > 0.5
