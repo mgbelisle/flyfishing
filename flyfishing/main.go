@@ -6,7 +6,7 @@ import (
 
 func main() {
 	lake := flyfishing.NewLake()
-	biteLocations := castNTimes(10, lake)
+	biteLocations := castNTimesAsync(1000, lake)
 	lake.LocationsToSVG(biteLocations)
 }
 
@@ -24,20 +24,21 @@ func castNTimes(n int, lake flyfishing.Lake) []flyfishing.Location {
 }
 
 func castNTimesAsync(n int, lake flyfishing.Lake) []flyfishing.Location {
-	locationChan := make(chan flyfishing.Location)
+	locations := []flyfishing.Location{}
+	done := make(chan bool)
 	for i := 0; i < n; i++ {
 		go func() {
 			loc := lake.RandLoc()
 			fly := flyfishing.Caddis{}
 			fish := lake.CastInto(fly, loc)
 			if fish != nil {
-				locationChan <- loc
+				locations = append(locations, loc)
 			}
+			done <- true
 		}()
 	}
-	locations := []flyfishing.Location{}
-	for {
-		locations = append(locations, <-locationChan)
+	for i := 0; i < n; i++ {
+		<-done
 	}
 	return locations
 }
