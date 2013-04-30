@@ -12,7 +12,9 @@ type Fish interface {
 	lureWith(Fly, Location) bool
 }
 
-// Trout is kind of like a class
+// Trout is kind of like a class.  It can be used on anything that
+// requires a Fish interface because it implements getLocation() and
+// lureWith().
 type Trout struct {
 	location Location
 }

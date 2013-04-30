@@ -1,10 +1,14 @@
-package main
+package main // Naming a package main means that nothing else can
+	     // import it and it is compiled into an executable.
 
 import (
-	"flyfishing"
+	"flyfishing" // Custom package for this demo
 	"fmt"
 )
 
+// main() executes first.  It instantiates a lake with a bunch of
+// fish, does 5000 casts into the lake, and prints a map of successful
+// cast locations.
 func main() {
 	lake := flyfishing.NewLake()
 	biteLocations := castNTimesAsync(5000, lake)
@@ -12,6 +16,8 @@ func main() {
 	fmt.Println("Map created:", svg.Name())
 }
 
+// Casts into the lake n times, returning the locations where fish
+// were caught
 func castNTimes(n int, lake flyfishing.Lake) []flyfishing.Location {
 	locations := []flyfishing.Location{}
 	for i := 0; i < n; i++ {
@@ -25,10 +31,14 @@ func castNTimes(n int, lake flyfishing.Lake) []flyfishing.Location {
 	return locations
 }
 
+// Casts into the lake n times in parallel, returning the locations
+// where the fish were caught
 func castNTimesAsync(n int, lake flyfishing.Lake) []flyfishing.Location {
 	locations := []flyfishing.Location{}
 	done := make(chan bool)
 	for i := 0; i < n; i++ {
+		// The go keyword means execute this function in
+		// another goroutine.
 		go func() {
 			loc := lake.RandLoc()
 			fly := flyfishing.Caddis{}
@@ -36,7 +46,8 @@ func castNTimesAsync(n int, lake flyfishing.Lake) []flyfishing.Location {
 			if fish != nil {
 				locations = append(locations, loc)
 			}
-			done <- true
+			done <- true // Notifies the channel that this
+				     // goroutine is finished.
 		}()
 	}
 	for i := 0; i < n; i++ {

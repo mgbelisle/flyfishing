@@ -7,10 +7,12 @@ import (
 	"os"
 )
 
+// Attributes of the same type can be done in one declaration.
 type Location struct {
 	X, Y float64
 }
 
+// Methods can be added to a struct in any file in the package.
 func (l Lake) LocationsToSVG(locations []Location) *os.File {
 	file, err := ioutil.TempFile("", "")
 	if err != nil {
@@ -21,6 +23,8 @@ func (l Lake) LocationsToSVG(locations []Location) *os.File {
 	return file
 }
 
+// Private objects/properties cannot be used outside the package
+// because they start with a lower case letter.
 type svgTemplateVals struct {
 	Lake Lake
 	Locations []Location
