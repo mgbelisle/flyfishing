@@ -43,11 +43,15 @@ func NewLake() Lake {
 	sweetSpot := lake.RandLoc()
 	// Adds 1000 fish to the lake placed randomly around a sweet
 	// spot.
+	locations := []Location{}
 	for i := 0; i < 1000 ; i++ {
 		loc := lake.RandLoc()
-		loc.X = sweetSpot.X + (loc.X - sweetSpot.X) / 10
-		loc.Y = sweetSpot.Y + (loc.Y - sweetSpot.Y) / 10
+		r := rand.Float64()
+		loc.X = sweetSpot.X + (loc.X - sweetSpot.X) * r
+		loc.Y = sweetSpot.Y + (loc.Y - sweetSpot.Y) * r
+		locations = append(locations, loc)
 		lake.fishes = append(lake.fishes, lake.newFish(loc))
 	}
+	lake.LocationsToSVG(locations)
 	return lake
 }
