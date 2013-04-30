@@ -7,8 +7,7 @@ import (
 func main() {
 	lake := flyfishing.NewLake()
 	biteLocations := castNTimesAsync(1000, lake)
-	if len(biteLocations) == 0 {}
-	// lake.LocationsToSVG(biteLocations)
+	lake.LocationsToSVG(biteLocations)
 }
 
 func castNTimes(n int, lake flyfishing.Lake) []flyfishing.Location {
