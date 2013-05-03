@@ -34,8 +34,7 @@ func castNTimes(n int, lake flyfishing.Lake) []flyfishing.Location {
 // Casts into the lake n times in parallel, returning the locations
 // where the fish were caught
 func castNTimesAsync(n int, lake flyfishing.Lake) []flyfishing.Location {
-	locations := []flyfishing.Location{}
-	done := make(chan bool)
+	castLogChan := make(chan flyfishing.CastLog)
 	for i := 0; i < n; i++ {
 		// The go keyword means execute this function in
 		// another goroutine.
@@ -43,15 +42,15 @@ func castNTimesAsync(n int, lake flyfishing.Lake) []flyfishing.Location {
 			loc := lake.RandLoc()
 			fly := flyfishing.Caddis{}
 			fish := lake.CastInto(fly, loc)
-			if fish != nil {
-				locations = append(locations, loc)
-			}
-			done <- true // Notifies the channel that this
-				     // goroutine is finished.
+			castLogChan <- flyfishing.CastLog{loc, fish}
 		}()
 	}
+	locations := []flyfishing.Location{}
 	for i := 0; i < n; i++ {
-		<-done // Waits for all n casts to finish
+		castLog := <-castLogChan
+		if castLog.Fish != nil {
+			locations = append(locations, castLog.Location)
+		}
 	}
 	return locations
 }

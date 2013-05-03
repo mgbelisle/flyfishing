@@ -1,9 +1,10 @@
 package flyfishing
 
 import (
+	"fmt"
 	"html/template"
-	"io/ioutil"
 	"log"
+	"math/rand"
 	"os"
 )
 
@@ -14,7 +15,8 @@ type Location struct {
 
 // Methods can be added to a struct in any file in the package.
 func (l Lake) LocationsToSVG(locations []Location) *os.File {
-	file, err := ioutil.TempFile("", "")
+	fname := fmt.Sprintf("%s/locations_%d.svg", os.TempDir(), rand.Int())
+	file, err := os.Create(fname)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -38,3 +40,8 @@ const svgTemplate =
   {{end}}
 </svg>
 `
+
+type CastLog struct {
+	Location Location
+	Fish Fish
+}
