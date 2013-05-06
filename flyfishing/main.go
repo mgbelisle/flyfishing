@@ -8,50 +8,48 @@ import (
 )
 
 // main() executes first.  It instantiates a lake with a bunch of
-// fish, does 5000 casts into the lake, and prints a map of successful
-// cast locations.
+// fish, does n casts into the lake, and prints a map of the cast
+// logs.
 func main() {
 	lake := flyfishing.NewLake()
-	biteLocations := castNTimes(10, lake)
-	svgBuffer := lake.LocationsToSVG(biteLocations)
-	io.Copy(os.Stdout,  svgBuffer)
+	castLogs := castNTimesAsync(5, lake)
+	io.Copy(os.Stdout,  lake.CastLogsToSVG(castLogs))
 }
 
 // Casts into the lake n times, returning the locations where fish
 // were caught
-func castNTimes(n int, lake flyfishing.Lake) []flyfishing.Location {
-	locations := []flyfishing.Location{}
+func castNTimes(n int, lake flyfishing.Lake) []flyfishing.CastLog {
+	castLogs := []flyfishing.CastLog{}
 	for i := 0; i < n; i++ {
 		loc := lake.RandLoc()
 		fly := flyfishing.Caddis{}
 		fish := lake.CastInto(fly, loc)
-		if fish != nil {
-			locations = append(locations, loc)
-		}
+		castLog := flyfishing.CastLog{Location: loc, Fly: fly, Fish: fish}
+		castLogs = append(castLogs, castLog)
 	}
-	return locations
+	return castLogs
 }
 
 // Casts into the lake n times in parallel, returning the locations
 // where the fish were caught
-func castNTimesAsync(n int, lake flyfishing.Lake) []flyfishing.Location {
+func castNTimesAsync(n int, lake flyfishing.Lake) []flyfishing.CastLog {
 	castLogChan := make(chan flyfishing.CastLog)
 	for i := 0; i < n; i++ {
 		// The go keyword means execute this function in
-		// another goroutine.
+		// another goroutine.  It casts into the lake, and
+		// when it's done sends the log to the cast log
+		// channel.
 		go func() {
 			loc := lake.RandLoc()
 			fly := flyfishing.Caddis{}
 			fish := lake.CastInto(fly, loc)
-			castLogChan <- flyfishing.CastLog{loc, fish}
+			castLog := flyfishing.CastLog{Location: loc, Fly: fly, Fish: fish}
+			castLogChan <- castLog
 		}()
 	}
-	locations := []flyfishing.Location{}
+	castLogs := []flyfishing.CastLog{}
 	for i := 0; i < n; i++ {
-		castLog := <-castLogChan
-		if castLog.Fish != nil {
-			locations = append(locations, castLog.Location)
-		}
+		castLogs = append(castLogs, <-castLogChan)
 	}
-	return locations
+	return castLogs
 }
