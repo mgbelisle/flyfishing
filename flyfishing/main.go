@@ -12,7 +12,7 @@ import (
 // logs.
 func main() {
 	lake := flyfishing.NewLake()
-	castLogs := castNTimesAsync(5, lake)
+	castLogs := castNTimesAsync(5000, lake)
 	io.Copy(os.Stdout,  lake.CastLogsToSVG(castLogs))
 }
 

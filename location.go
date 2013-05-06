@@ -35,9 +35,9 @@ type svgTemplateVals struct {
 
 const svgTemplate =
 `<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-  <rect width="{{.Lake.Length}}" height="{{.Lake.Width}}" fill="blue" fill-opacity="0.2" />
+  <rect width="{{.Lake.Length}}" height="{{.Lake.Width}}" fill="#0066FF" />
   {{range .CastLogs}}{{if .Fish}}
-  <circle cx="{{.Location.X}}" cy="{{.Location.Y}}" r="2" fill="green" />
+  <circle cx="{{.Location.X}}" cy="{{.Location.Y}}" r="1" fill="#00FF00" />
   {{else}}
   <!-- No fish at ({{.Location.X}}, {{.Location.Y}}) -->
   {{end}}{{end}}
