@@ -12,7 +12,7 @@ import (
 // cast locations.
 func main() {
 	lake := flyfishing.NewLake()
-	biteLocations := castNTimesAsync(5000, lake)
+	biteLocations := castNTimes(10, lake)
 	svgBuffer := lake.LocationsToSVG(biteLocations)
 	io.Copy(os.Stdout,  svgBuffer)
 }
