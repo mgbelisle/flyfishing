@@ -1,11 +1,9 @@
 package flyfishing
 
 import (
-	"fmt"
+	"bytes"
 	"html/template"
-	"log"
-	"math/rand"
-	"os"
+	"io"
 )
 
 // Attributes of the same type can be done in one declaration.
@@ -14,15 +12,11 @@ type Location struct {
 }
 
 // Methods can be added to a struct in any file in the package.
-func (l Lake) LocationsToSVG(locations []Location) *os.File {
-	fname := fmt.Sprintf("%s/locations_%d.svg", os.TempDir(), rand.Int())
-	file, err := os.Create(fname)
-	if err != nil {
-		log.Fatal(err)
-	}
+func (l Lake) LocationsToSVG(locations []Location) io.Reader {
+	buffer := bytes.NewBufferString("")
 	t := template.Must(template.New("").Parse(svgTemplate))
-	t.Execute(file, svgTemplateVals{l, locations})
-	return file
+	t.Execute(buffer, svgTemplateVals{l, locations})
+	return buffer
 }
 
 // Private objects/properties cannot be used outside the package

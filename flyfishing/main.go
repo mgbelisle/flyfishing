@@ -3,7 +3,8 @@ package main // Naming a package main means that nothing else can
 
 import (
 	"flyfishing" // Custom package for this demo
-	"fmt"
+	"io"
+	"os"
 )
 
 // main() executes first.  It instantiates a lake with a bunch of
@@ -12,8 +13,8 @@ import (
 func main() {
 	lake := flyfishing.NewLake()
 	biteLocations := castNTimesAsync(5000, lake)
-	svg := lake.LocationsToSVG(biteLocations)
-	fmt.Println("Map created:", svg.Name())
+	svgBuffer := lake.LocationsToSVG(biteLocations)
+	io.Copy(os.Stdout,  svgBuffer)
 }
 
 // Casts into the lake n times, returning the locations where fish
