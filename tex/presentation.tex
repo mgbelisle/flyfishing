@@ -1,7 +1,7 @@
 \documentclass{beamer}
 \title{Parallel Processing in Go}
 \subtitle{Flyfishing and a Monte Carlo Experiment}
-\author{Matt Belisle}
+\author{Matt Belisle\\\href{mailto:mgbelisle@gmail.com}{mgbelisle@gmail.com}}
 \date{BigSky DevCon 2013-06-21}
 \begin{document}
 \begin{frame}
@@ -35,15 +35,15 @@
   \end{itemize}
 \end{frame}
 \begin{frame}
-  \frametitle{What are the goals?}
+  \frametitle{Why did they make Go?}
 
-  Go aims to be ...
+  There was no existing language that met all 3 creteria that Google
+  wanted.
   
   \begin{itemize}
-    \item Intuitive to learn
-    \item Quick to develop
-    \item Blazing fast
-    \item Beautifully parallel
+    \item Efficient compilation
+    \item Efficient execution
+    \item Ease of programming
   \end{itemize}
 \end{frame}
 \begin{frame}
@@ -66,7 +66,6 @@
     \item Your app needs to do lots of things at the same time
     \item Your app needs to be fast
     \item Your infrastructure needs to be distributed/scalable
-    \item The devs embrace the ``Zen of Python''
   \end{itemize}
 \end{frame}
 \end{document}
