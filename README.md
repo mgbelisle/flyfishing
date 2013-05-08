@@ -18,4 +18,4 @@ In order to run the app, do
 $ go run flyfishing/main.go > /tmp/lake.svg
 ```
 
-and then open lake.svg in a browser.
+and then open lake.svg in a browser to see the results.
