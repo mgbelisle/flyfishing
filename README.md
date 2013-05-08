@@ -12,7 +12,7 @@ demonstrates some basic features available in Go, such as:
 * Public vs private objects/properties
 * Namespaces
 
-In order to run the app:
+In order to run the app, do
 
 ```
 $ go run flyfishing/main.go > /tmp/lake.svg
