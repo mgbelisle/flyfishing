@@ -1,5 +1,6 @@
-package main // Naming a package main means that nothing else can
-	     // import it and it is compiled into an executable.
+// Naming a package main means that nothing else can import it and it
+// is compiled into an executable.
+package main
 
 import (
 	"flyfishing" // Custom package for this demo
@@ -13,7 +14,7 @@ import (
 func main() {
 	lake := flyfishing.NewLake()
 	castLogs := castNTimesAsync(5000, lake)
-	io.Copy(os.Stdout,  lake.CastLogsToSVG(castLogs))
+	io.Copy(os.Stdout, lake.CastLogsToSVG(castLogs))
 }
 
 // Casts into the lake n times, returning the locations where fish

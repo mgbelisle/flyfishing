@@ -2,8 +2,8 @@ package flyfishing
 
 import (
 	"fmt"
-	"math/rand"
 	"math"
+	"math/rand"
 )
 
 // This interface for a fish makes the lake struct super flexible.
@@ -18,6 +18,7 @@ type Fish interface {
 type Trout struct {
 	location Location
 }
+
 func (t Trout) getLocation() Location {
 	return t.location
 }
@@ -25,17 +26,19 @@ func (t Trout) lureWith(fly Fly, loc Location) bool {
 	return t.noticesFly(loc) && t.isHungry() && t.likesFlyType(fly)
 }
 func (t Trout) noticesFly(loc Location) bool {
-	distance := math.Sqrt(math.Pow(loc.X - t.location.X, 2) +
-		math.Pow(loc.Y - t.location.Y, 2))
-	return rand.Float64() < 1 / (1 + math.Pow(distance, 2))
+	distance := math.Sqrt(math.Pow(loc.X-t.location.X, 2) +
+		math.Pow(loc.Y-t.location.Y, 2))
+	return rand.Float64() < 1/(1+math.Pow(distance, 2))
 }
 func (_ Trout) isHungry() bool {
 	return rand.Float64() > 0.5
 }
 func (_ Trout) likesFlyType(fly Fly) bool {
 	switch fly.(type) {
-	case Caddis: return true
-	case WoollyBugger: return true
+	case Caddis:
+		return true
+	case WoollyBugger:
+		return true
 	}
 	return false
 }
@@ -45,18 +48,22 @@ func (t Trout) String() string {
 
 // Cutthroat is kind of like a subclass of Trout.  It likes different
 // flies than a normal trout.
-type Cutthroat struct { Trout }
+type Cutthroat struct{ Trout }
+
 func (_ Cutthroat) likesFlyType(fly Fly) bool {
 	switch fly.(type) {
-	case Caddis: return true
-	case ParachuteAdams: return true
+	case Caddis:
+		return true
+	case ParachuteAdams:
+		return true
 	}
 	return false
 }
 
 // Rainbow is kind of like a subclass of Trout.  Notice how it is less
 // hungry than a normal Trout.
-type Rainbow struct { Trout }
+type Rainbow struct{ Trout }
+
 func (_ Rainbow) isHungry() bool {
 	return rand.Float64() > 0.3
 }
