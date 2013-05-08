@@ -11,3 +11,11 @@ demonstrates some basic features available in Go, such as:
 * Object inheritance
 * Public vs private objects/properties
 * Namespaces
+
+In order to run the app:
+
+```
+$ go run flyfishing/main.go > /tmp/lake.svg
+```
+
+and then open lake.svg in a browser.
