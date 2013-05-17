@@ -3,7 +3,7 @@
 package main
 
 import (
-	"flyfishing" // Custom package for this demo
+	"mgbelisle/flyfishing" // Custom package for this demo
 	"io"
 	"os"
 )

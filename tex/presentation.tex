@@ -1,7 +1,10 @@
 \documentclass{beamer}
+\usetheme{Warsaw}
+\usecolortheme{seahorse}
+\setbeamertemplate{navigation symbols}{}
 \title{Parallel Processing in Go}
 \subtitle{Flyfishing and a Monte Carlo Experiment}
-\author{Matt Belisle\\\href{mailto:mgbelisle@gmail.com}{mgbelisle@gmail.com}}
+\author{Matt Belisle\\ \href{mailto:mgbelisle@gmail.com}{mgbelisle@gmail.com}}
 \date{BigSky DevCon 2013-06-21}
 \begin{document}
 \begin{frame}
@@ -46,12 +49,19 @@
     \item Ease of programming
   \end{itemize}
 \end{frame}
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{Can we see some Go?}
   \framesubtitle{And what about flyfishing?}
   \begin{center}
-    \url{https://github.com/mgbelisle/flyfishing}
-  \end{center}
+    Open \url{https://github.com/mgbelisle/flyfishing}
+    \bigskip
+
+    or ...
+  \end{center}  
+  \begin{verbatim}
+    $ go get github.com/mgbelisle/flyfishing
+    $ cd $GOPATH/src/github.com/mgbelisle/flyfishing
+  \end{verbatim}
 \end{frame}
 \begin{frame}
   \frametitle{Should your project be written in Go?}
