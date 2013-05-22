@@ -19,6 +19,9 @@ type Lake struct {
 // Structs support methods like this.
 func (l Lake) CastInto(fly Fly, loc Location) Fish {
 	time.Sleep(time.Millisecond * 100)
+	// range returns index, element for every element in an
+	// iterable.  The underscore ignores a variable if you don't
+	// need it.
 	for _, fish := range l.fishes {
 		if fish.lureWith(fly, loc) {
 			return fish
