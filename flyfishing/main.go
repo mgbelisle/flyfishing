@@ -38,9 +38,7 @@ func castNTimesAsync(n int, lake flyfishing.Lake) []flyfishing.CastLog {
 	castLogChan := make(chan flyfishing.CastLog)
 	for i := 0; i < n; i++ {
 		// The go keyword means execute this function in
-		// another goroutine.  It casts into the lake, and
-		// when it's done sends the log to the cast log
-		// channel.
+		// another goroutine.
 		go castOnce(lake, castLogChan)
 	}
 	castLogs := []flyfishing.CastLog{}
