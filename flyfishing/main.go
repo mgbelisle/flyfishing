@@ -40,17 +40,19 @@ func castNTimesAsync(n int, lake flyfishing.Lake) []flyfishing.CastLog {
 		// another goroutine.  It casts into the lake, and
 		// when it's done sends the log to the cast log
 		// channel.
-		go func() {
-			loc := lake.RandLoc()
-			fly := flyfishing.Caddis{}
-			fish := lake.CastInto(fly, loc)
-			castLog := flyfishing.CastLog{Location: loc, Fly: fly, Fish: fish}
-			castLogChan <- castLog
-		}()
+		go castOnce(lake, castLogChan)
 	}
 	castLogs := []flyfishing.CastLog{}
 	for i := 0; i < n; i++ {
 		castLogs = append(castLogs, <-castLogChan)
 	}
 	return castLogs
+}
+
+func castOnce(lake flyfishing.Lake, castLogChan chan flyfishing.CastLog) {
+	loc := lake.RandLoc()
+	fly := flyfishing.Caddis{}
+	fish := lake.CastInto(fly, loc)
+	castLog := flyfishing.CastLog{Location: loc, Fly: fly, Fish: fish}
+	castLogChan <- castLog
 }
