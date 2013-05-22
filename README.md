@@ -1,7 +1,7 @@
 flyfishing
 ==========
 
-Parallel Processing in Go: Fly Fishing and a Monte Carlo Experiment
+Concurrent Processing in Go: Fly Fishing and a Monte Carlo Experiment
 
 This small app is for Montana Programmers BigSky DevCon 2013.  It
 demonstrates some basic features available in Go, such as:
@@ -15,7 +15,9 @@ demonstrates some basic features available in Go, such as:
 In order to run the app, do
 
 ```
-$ go run flyfishing/main.go > /tmp/lake.svg
+$ go get github.com/mgbelisle/flyfishing/flyfishing
+$ cd $GOPATH
+$ ./bin/flyfishing > ~/Desktop/cast_results.svg
 ```
 
-and then open lake.svg in a browser to see the results.
+and then open cast_results.svg in a browser to see the results.
