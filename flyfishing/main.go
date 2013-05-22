@@ -34,6 +34,7 @@ func castNTimes(n int, lake flyfishing.Lake) []flyfishing.CastLog {
 // Casts into the lake n times in parallel, returning the locations
 // where the fish were caught
 func castNTimesAsync(n int, lake flyfishing.Lake) []flyfishing.CastLog {
+	// A CastLog channel is like a pipe for CastLog objects.
 	castLogChan := make(chan flyfishing.CastLog)
 	for i := 0; i < n; i++ {
 		// The go keyword means execute this function in
@@ -44,6 +45,8 @@ func castNTimesAsync(n int, lake flyfishing.Lake) []flyfishing.CastLog {
 	}
 	castLogs := []flyfishing.CastLog{}
 	for i := 0; i < n; i++ {
+		// <-castLogChan pulls a CastLog object out of the
+		// channel, waiting if necessary.
 		castLogs = append(castLogs, <-castLogChan)
 	}
 	return castLogs
@@ -54,5 +57,6 @@ func castOnce(lake flyfishing.Lake, castLogChan chan flyfishing.CastLog) {
 	fly := flyfishing.Caddis{}
 	fish := lake.CastInto(fly, loc)
 	castLog := flyfishing.CastLog{Location: loc, Fly: fly, Fish: fish}
+	// This sends a CastLog object into the channel.
 	castLogChan <- castLog
 }
