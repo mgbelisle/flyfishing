@@ -9,8 +9,8 @@ import (
 )
 
 // main() executes first.  It instantiates a lake with a bunch of
-// fish, does n casts into the lake, and prints a map of the cast
-// logs.
+// fish, does n casts into the lake, and prints a map of where fish
+// were caught.
 func main() {
 	lake := flyfishing.NewLake()
 	castLogs := castNTimesAsync(5000, lake)
