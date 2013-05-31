@@ -11,17 +11,11 @@ type Location struct {
 	X, Y float64
 }
 
-type CastLog struct {
-	Location Location
-	Fly      Fly
-	Fish     Fish
-}
-
 // Methods can be added to a struct by any file in the package.
-func (l Lake) CastLogsToSVG(castLogs []CastLog) io.Reader {
+func (lake Lake) LocationsToSVG(locations []Location) io.Reader {
 	buffer := bytes.NewBufferString("")
 	templ := template.Must(template.New("").Parse(svgTemplate))
-	templ.Execute(buffer, svgTemplateVals{l, castLogs})
+	templ.Execute(buffer, svgTemplateVals{lake, locations})
 	return buffer
 }
 
@@ -29,15 +23,13 @@ func (l Lake) CastLogsToSVG(castLogs []CastLog) io.Reader {
 // because they start with a lower case letter.
 type svgTemplateVals struct {
 	Lake     Lake
-	CastLogs []CastLog
+	Locations []Location
 }
 
 const svgTemplate = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
   <rect width="{{.Lake.Length}}" height="{{.Lake.Width}}" fill="#0066FF" />
-  {{range .CastLogs}}{{if .Fish}}
-  <circle cx="{{.Location.X}}" cy="{{.Location.Y}}" r="1" fill="#00FF00" />
-  {{else}}
-  <!-- No fish at ({{.Location.X}}, {{.Location.Y}}) -->
-  {{end}}{{end}}
+  {{range .Locations}}
+  <circle cx="{{.X}}" cy="{{.Y}}" r="1" fill="#00FF00" />
+  {{end}}
 </svg>
 `
