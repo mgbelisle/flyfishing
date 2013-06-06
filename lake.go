@@ -17,13 +17,13 @@ type Lake struct {
 }
 
 // Structs support methods like this.
-func (l Lake) CastInto(fly Fly, loc Location) Fish {
+func (l Lake) CastInto(fly Fly, location Location) Fish {
 	time.Sleep(time.Millisecond * 100)
 	// range returns index, element for every element in an
 	// iterable.  The underscore ignores a variable if you don't
 	// need it.
 	for _, fish := range l.fishes {
-		if fish.lureWith(fly, loc) {
+		if fish.lureWith(fly, location) {
 			return fish
 		}
 	}
@@ -31,19 +31,19 @@ func (l Lake) CastInto(fly Fly, loc Location) Fish {
 }
 
 // Gets a random location on the lake
-func (l Lake) RandLoc() Location {
+func (l Lake) RandLocation() Location {
 	x := rand.Float64() * l.Length
 	y := rand.Float64() * l.Width
 	return Location{x, y}
 }
 
 // Adds a new fish to the lake
-func (l Lake) newFish(loc Location) Fish {
+func (l Lake) newFish(location Location) Fish {
 	r := rand.Float64()
 	if r < 0.5 {
-		return Rainbow{Trout{loc}}
+		return Rainbow{Trout{location}}
 	}
-	return Cutthroat{Trout{loc}}
+	return Cutthroat{Trout{location}}
 }
 
 // Instantiates a new lake.  The convention is to have NewClassName()
@@ -51,15 +51,15 @@ func (l Lake) newFish(loc Location) Fish {
 // parameters you want.
 func NewLake() Lake {
 	lake := Lake{Length: 500, Width: 300}
-	sweetSpot := lake.RandLoc()
+	sweetSpot := lake.RandLocation()
 	// Adds 1000 fish to the lake placed randomly around a sweet
 	// spot.
 	for i := 0; i < 1000; i++ {
-		loc := lake.RandLoc()
+		location := lake.RandLocation()
 		r := rand.Float64()
-		loc.X = sweetSpot.X + (loc.X-sweetSpot.X)*r
-		loc.Y = sweetSpot.Y + (loc.Y-sweetSpot.Y)*r
-		lake.fishes = append(lake.fishes, lake.newFish(loc))
+		location.X = sweetSpot.X + (location.X-sweetSpot.X)*r
+		location.Y = sweetSpot.Y + (location.Y-sweetSpot.Y)*r
+		lake.fishes = append(lake.fishes, lake.newFish(location))
 	}
 	return lake
 }

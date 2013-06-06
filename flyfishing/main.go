@@ -22,12 +22,11 @@ func main() {
 func castNTimes(n int, lake flyfishing.Lake) []flyfishing.Location {
 	locations := []flyfishing.Location{}
 	for i := 0; i < n; i++ {
-		// TODO: Update loc name
-		loc := lake.RandLoc()
+		location := lake.RandLocation()
 		fly := flyfishing.Caddis{}
-		fish := lake.CastInto(fly, loc)
+		fish := lake.CastInto(fly, location)
 		if fish != nil {
-			locations = append(locations, loc)
+			locations = append(locations, location)
 		}
 	}
 	return locations
@@ -42,11 +41,11 @@ func castNTimesAsync(n int, lake flyfishing.Lake) []flyfishing.Location {
 		// This is an inline function, and go executes it in a
 		// new goroutine via the go keyword.
 		go func() {
-			loc := lake.RandLoc()
+			location := lake.RandLocation()
 			fly := flyfishing.Caddis{}
-			fish := lake.CastInto(fly, loc)
+			fish := lake.CastInto(fly, location)
 			if fish != nil {
-				locations = append(locations, loc)
+				locations = append(locations, location)
 			}
 			c <- true
 		}()
