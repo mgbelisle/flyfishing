@@ -47,8 +47,8 @@ func castNTimesAsync(n int, lake flyfishing.Lake) []flyfishing.Location {
 			if fish == nil {
 				c <- "No fish"
 			} else {
-				c <- "Yay a fish"
 				locations = append(locations, location)
+				c <- "Yay a fish"
 			}
 		}()
 	}
