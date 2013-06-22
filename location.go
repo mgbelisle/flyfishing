@@ -29,7 +29,7 @@ type svgTemplateVals struct {
 const svgTemplate = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
   <rect width="{{.Lake.Length}}" height="{{.Lake.Width}}" fill="#0066FF" />
   {{range .Locations}}
-  <circle cx="{{.X}}" cy="{{.Y}}" r="1" fill="#00FF00" />
+  <circle cx="{{.X}}" cy="{{.Y}}" r="2" fill="#FFFFFF" />
   {{end}}
 </svg>
 `

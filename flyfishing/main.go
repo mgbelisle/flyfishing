@@ -33,10 +33,11 @@ func castNTimes(n int, lake flyfishing.Lake) []flyfishing.Location {
 }
 
 // Casts into the lake n times in parallel, returning the locations
-// where the fish were caught
+// where the fish were caught.
 func castNTimesAsync(n int, lake flyfishing.Lake) []flyfishing.Location {
-	locations := []flyfishing.Location{}
-	c := make(chan string)
+	// Kicks off one goroutine for each cast.
+	catchChan := make(chan bool)
+	locationChan := make(chan flyfishing.Location)
 	for i := 0; i < n; i++ {
 		// This is an inline function, and go executes it in a
 		// new goroutine via the go keyword.
@@ -45,20 +46,21 @@ func castNTimesAsync(n int, lake flyfishing.Lake) []flyfishing.Location {
 			fly := flyfishing.Caddis{}
 			fish := lake.CastInto(fly, location)
 			if fish == nil {
-				c <- "No fish"
+				catchChan <- false
 			} else {
-				locations = append(locations, location)
-				c <- "Yay a fish"
+				catchChan <- true
+				locationChan <- location
 			}
 		}()
 	}
+
+	// Waits for all the goroutines to finish, collecting the
+	// locations for the successful ones.
+	locations := []flyfishing.Location{}
 	for i := 0; i < n; i++ {
-		<-c  // <-c reads a string from the c channel.  We can
-		     // do anything we want with the string but we're
-		     // just using it as a counter in this example.
-		     // If the channel has no strings queued up yet,
-		     // it waits until a string is passed in (which
-		     // happens in the goroutine above)
+		if <-catchChan {
+			locations = append(locations, <-locationChan)
+		}
 	}
 	return locations
 }
