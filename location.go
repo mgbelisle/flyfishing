@@ -22,7 +22,7 @@ func (lake Lake) LocationsToSVG(locations []Location) io.Reader {
 // Private objects/properties cannot be used outside the package
 // because they start with a lower case letter.
 type svgTemplateVals struct {
-	Lake     Lake
+	Lake      Lake
 	Locations []Location
 }
 
