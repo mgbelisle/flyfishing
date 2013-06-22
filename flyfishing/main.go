@@ -13,7 +13,7 @@ import (
 // were caught.
 func main() {
 	lake := flyfishing.NewLake()
-	locations := castNTimesAsync(5000, lake)
+	locations := castNTimes(3000, lake)
 	io.Copy(os.Stdout, lake.LocationsToSVG(locations))
 }
 
