@@ -1,7 +1,7 @@
 flyfishing
 ==========
 
-Concurrent Processing in Go: Fly Fishing and a Monte Carlo Experiment
+Concurrent Processing in Go
 
 This small app is for Montana Programmers BigSky DevCon 2013.  It
 demonstrates some basic features available in Go, such as:
